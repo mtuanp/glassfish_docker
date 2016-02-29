@@ -14,17 +14,17 @@ RUN         curl -L -o /tmp/glassfish-$GLASSFISH_VERSION-web.zip http://download
             unzip /tmp/glassfish-$GLASSFISH_VERSION-web.zip -d /opt/ && \
             rm -f /tmp/glassfish-$GLASSFISH_VERSION-web.zip
 
-COPY         changePassword.sh /opt/glassfish3
-COPY         enableAdmin.sh /opt/glassfish3
+COPY        resources /opt
 
 RUN         asadmin start-domain && \
-            expect /opt/glassfish3/changePassword.sh && \
-            expect /opt/glassfish3/enableAdmin.sh && \
-            asadmin stop-domain
+            expect /opt/changePassword.sh && \
+            expect /opt/enableAdmin.sh && \
+            asadmin stop-domain && \
+            rm /opt/*.sh
 
 VOLUME ["/opt/glassfish3/glassfish/domains"]
 
-EXPOSE      8080 4848 8181
+EXPOSE      8080 4848 8181 9009
 
 WORKDIR     /opt/glassfish3
 
