@@ -14,8 +14,8 @@ RUN         curl -L -o /tmp/glassfish-$GLASSFISH_VERSION-web.zip http://download
             unzip /tmp/glassfish-$GLASSFISH_VERSION-web.zip -d /opt/ && \
             rm -f /tmp/glassfish-$GLASSFISH_VERSION-web.zip
 
-ADD         changePassword.sh /opt/glassfish3
-ADD         enableAdmin.sh /opt/glassfish3
+COPY         changePassword.sh /opt/glassfish3
+COPY         enableAdmin.sh /opt/glassfish3
 
 RUN         asadmin start-domain && \
             expect /opt/glassfish3/changePassword.sh && \
